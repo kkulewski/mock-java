@@ -3,13 +3,17 @@ package Projekt2.Repositories.InMemory;
 import Projekt2.Entities.Client;
 import Projekt2.Repositories.ClientRepository;
 import com.google.common.collect.Iterables;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class InMemoryClientRepository implements ClientRepository
 {
     private List<Client> clients;
+
+    public InMemoryClientRepository()
+    {
+        this.clients = new ArrayList<>();
+    }
 
     @Override
     public Client getById(int clientId)
