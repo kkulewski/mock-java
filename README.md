@@ -1,4 +1,7 @@
 # Testowanie aplikacji JAVA 2017-2018
+
+[![Build Status](https://travis-ci.com/TestowanieJAVA2017-2018Gr2/projekt2-kkulewski.svg?token=raYvD9MwETMyAUKsjNr7&branch=master)](https://travis-ci.com/TestowanieJAVA2017-2018Gr2/projekt2-kkulewski)
+
 ## Projekt 2 (Maven, JUnit oraz atrapy) 
 
 -----------------------
