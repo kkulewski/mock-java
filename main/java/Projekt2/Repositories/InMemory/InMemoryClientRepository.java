@@ -1,0 +1,48 @@
+package Projekt2.Repositories.InMemory;
+
+import Projekt2.Entities.Client;
+import Projekt2.Repositories.ClientRepository;
+import com.google.common.collect.Iterables;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class InMemoryClientRepository implements ClientRepository
+{
+    private List<Client> clients;
+
+    @Override
+    public Client getById(int clientId)
+    {
+        return Iterables.tryFind(clients, x -> x.getId() == clientId).orNull();
+    }
+
+    @Override
+    public List<Client> getAll()
+    {
+        return new ArrayList<>(clients);
+    }
+
+    @Override
+    public void add(Client client)
+    {
+        clients.add(client);
+    }
+
+    @Override
+    public void update(Client client)
+    {
+        Client oldClient = Iterables.tryFind(clients, x -> x.getId() == client.getId()).orNull();
+        if (oldClient != null)
+        {
+            clients.remove(oldClient);
+            clients.add(client);
+        }
+    }
+
+    @Override
+    public void delete(Client client)
+    {
+        clients.remove(client);
+    }
+}
