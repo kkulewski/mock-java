@@ -1,19 +1,8 @@
 package projekt2.entities;
 
-public class Order
+public class Order extends Entity
 {
-    private int id;
     private int clientId;
-
-    public int getId()
-    {
-        return id;
-    }
-
-    public void setId(int id)
-    {
-        this.id = id;
-    }
 
     public int getClientId()
     {

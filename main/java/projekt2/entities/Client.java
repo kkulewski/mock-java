@@ -1,21 +1,10 @@
 package projekt2.entities;
 
-public class Client
+public class Client extends Entity
 {
-    private int id;
     private String firstName;
     private String lastName;
     private String email;
-
-    public int getId()
-    {
-        return id;
-    }
-
-    public void setId(int id)
-    {
-        this.id = id;
-    }
 
     public String getFirstName()
     {

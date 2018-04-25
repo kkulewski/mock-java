@@ -1,6 +1,6 @@
 package projekt2.entities;
 
-public class OrderItem
+public class OrderItem extends Entity
 {
     private int orderId;
     private int itemId;

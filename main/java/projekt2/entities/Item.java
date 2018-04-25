@@ -1,20 +1,9 @@
 package projekt2.entities;
 
-public class Item
+public class Item extends Entity
 {
-    private int id;
     private String name;
     private double value;
-
-    public int getId()
-    {
-        return id;
-    }
-
-    public void setId(int id)
-    {
-        this.id = id;
-    }
 
     public String getName()
     {
