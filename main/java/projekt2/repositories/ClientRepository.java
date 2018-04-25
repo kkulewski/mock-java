@@ -1,6 +1,6 @@
-package Projekt2.Repositories;
+package projekt2.repositories;
 
-import Projekt2.Entities.Client;
+import projekt2.entities.Client;
 import java.util.List;
 
 public interface ClientRepository

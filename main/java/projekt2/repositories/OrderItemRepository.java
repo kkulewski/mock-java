@@ -1,6 +1,6 @@
-package Projekt2.Repositories;
+package projekt2.repositories;
 
-import Projekt2.Entities.OrderItem;
+import projekt2.entities.OrderItem;
 import java.util.List;
 
 public interface OrderItemRepository

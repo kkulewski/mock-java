@@ -1,7 +1,7 @@
-package Projekt2.Repositories.InMemory;
+package projekt2.repositories.inMemory;
 
-import Projekt2.Entities.Client;
-import Projekt2.Repositories.ClientRepository;
+import projekt2.entities.Client;
+import projekt2.repositories.ClientRepository;
 import com.google.common.collect.Iterables;
 import java.util.ArrayList;
 import java.util.List;

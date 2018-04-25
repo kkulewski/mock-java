@@ -1,4 +1,4 @@
-package Projekt2.Entities;
+package projekt2.entities;
 
 public class Client
 {
