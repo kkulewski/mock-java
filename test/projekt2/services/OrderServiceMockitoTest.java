@@ -48,4 +48,21 @@ public class OrderServiceMockitoTest
         // Assert
         assertThat(result).containsAll(expectedOrders);
     }
+
+    @Test
+    void addItemToOrderReturnsFalseWhenItemIsAlreadyInAnotherOrder()
+    {
+        // Arrange
+        Item item = new Item(1, "uKeyboard", 100.0);
+        Order anotherOrder = new Order(1, 10);
+        OrderItem orderItem = new OrderItem(anotherOrder.getId(), item.getId());
+        doReturn(orderItem).when(orderItemRepo).getByItemId(item.getId());
+
+        // Act
+        Order myOrder = new Order(2, 1);
+        boolean wasAdded = os.addItemToOrder(item, myOrder);
+
+        // Assert
+        assertThat(wasAdded).isFalse();
+    }
 }
