@@ -30,38 +30,38 @@ public class InMemoryGenericRepository<TEntity extends Entity> implements Generi
     @Override
     public boolean add(TEntity entity)
     {
-        if (this.getById(entity.getId()) == null)
+        if (this.getById(entity.getId()) != null)
         {
-            this.entities.add(entity);
-            return true;
+            return false;
         }
 
-        return false;
+        this.entities.add(entity);
+        return true;
     }
 
     @Override
     public boolean update(TEntity entity)
     {
         TEntity oldEntity = Iterables.tryFind(this.entities, x -> x.getId() == entity.getId()).orNull();
-        if (oldEntity != null)
+        if (oldEntity == null)
         {
-            entities.remove(oldEntity);
-            entities.add(entity);
-            return true;
+            return false;
         }
 
-        return false;
+        entities.remove(oldEntity);
+        entities.add(entity);
+        return true;
     }
 
     @Override
     public boolean delete(TEntity entity)
     {
-        if (this.getById(entity.getId()) != null)
+        if (this.getById(entity.getId()) == null)
         {
-            entities.remove(entity);
-            return true;
+            return false;
         }
 
-        return false;
+        entities.remove(entity);
+        return true;
     }
 }
