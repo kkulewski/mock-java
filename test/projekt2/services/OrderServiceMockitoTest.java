@@ -47,6 +47,12 @@ public class OrderServiceMockitoTest
     }
 
     @Test
+    void addItemToOrderReturnsFalseWhenItemAndOrderAreNull()
+    {
+        assertThat(os.addItemToOrder(null, null)).isFalse();
+    }
+
+    @Test
     void addItemToOrderReturnsFalseWhenItemIsAlreadyInAnotherOrder()
     {
         // Arrange
