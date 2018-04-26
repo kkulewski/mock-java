@@ -12,9 +12,10 @@ import projekt2.repositories.OrderRepository;
 import java.util.Arrays;
 import java.util.List;
 
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doReturn;
-import static org.assertj.core.api.Assertions.assertThat;
 
 @ExtendWith(MockitoExtension.class)
 public class OrderServiceMockitoTest
@@ -29,6 +30,14 @@ public class OrderServiceMockitoTest
         orderRepo = Mockito.mock(OrderRepository.class);
         orderItemRepo = Mockito.mock(OrderItemRepository.class);
         os = new OrderService(orderRepo, orderItemRepo);
+    }
+
+    @Test
+    void getClientOrdersThrowsWhenClientIsNull()
+    {
+        assertThatThrownBy(() -> os.getClientOrders(null))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("client");
     }
 
     @Test

@@ -22,6 +22,11 @@ public class OrderService
 
     public List<Order> getClientOrders(Client client)
     {
+        if (client == null)
+        {
+            throw new IllegalArgumentException("client");
+        }
+
         return orderRepo.getByClientId(client.getId());
     }
 
