@@ -5,8 +5,11 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
 import projekt2.entities.Client;
+import projekt2.entities.Item;
 import projekt2.entities.Order;
+import projekt2.entities.OrderItem;
 import projekt2.extensions.MockitoExtension;
+import projekt2.repositories.OrderItemRepository;
 import projekt2.repositories.OrderRepository;
 
 import java.util.Arrays;
@@ -19,6 +22,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class OrderServiceMockitoTest
 {
     private OrderRepository orderRepo;
+    private OrderItemRepository orderItemRepo;
 
     private OrderService os;
 
@@ -26,7 +30,8 @@ public class OrderServiceMockitoTest
     void setup()
     {
         orderRepo = Mockito.mock(OrderRepository.class);
-        os = new OrderService(orderRepo);
+        orderItemRepo = Mockito.mock(OrderItemRepository.class);
+        os = new OrderService(orderRepo, orderItemRepo);
     }
 
     @Test
