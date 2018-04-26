@@ -62,4 +62,20 @@ public class OrderServiceMockitoTest
         // Assert
         assertThat(wasAdded).isFalse();
     }
+
+    @Test
+    void addItemToOrderReturnsTrueWhenItemWasAdded()
+    {
+        // Arrange
+        Order myOrder = new Order(2, 1);
+        Item item = new Item(1, "uKeyboard", 100.0);
+        doReturn(null).when(orderItemRepo).getByItemId(item.getId());
+        doReturn(true).when(orderItemRepo).add(any());
+
+        // Act
+        boolean wasAdded = os.addItemToOrder(item, myOrder);
+
+        // Assert
+        assertThat(wasAdded).isTrue();
+    }
 }
