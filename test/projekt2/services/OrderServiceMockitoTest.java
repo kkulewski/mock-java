@@ -4,10 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
-import projekt2.entities.Client;
-import projekt2.entities.Item;
-import projekt2.entities.Order;
-import projekt2.entities.OrderItem;
+import projekt2.entities.*;
 import projekt2.extensions.MockitoExtension;
 import projekt2.repositories.OrderItemRepository;
 import projekt2.repositories.OrderRepository;
@@ -15,6 +12,7 @@ import projekt2.repositories.OrderRepository;
 import java.util.Arrays;
 import java.util.List;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doReturn;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -23,7 +21,6 @@ public class OrderServiceMockitoTest
 {
     private OrderRepository orderRepo;
     private OrderItemRepository orderItemRepo;
-
     private OrderService os;
 
     @BeforeEach
@@ -53,13 +50,13 @@ public class OrderServiceMockitoTest
     void addItemToOrderReturnsFalseWhenItemIsAlreadyInAnotherOrder()
     {
         // Arrange
-        Item item = new Item(1, "uKeyboard", 100.0);
+        Order myOrder = new Order(2, 1);
         Order anotherOrder = new Order(1, 10);
+        Item item = new Item(1, "uKeyboard", 100.0);
         OrderItem orderItem = new OrderItem(anotherOrder.getId(), item.getId());
         doReturn(orderItem).when(orderItemRepo).getByItemId(item.getId());
 
         // Act
-        Order myOrder = new Order(2, 1);
         boolean wasAdded = os.addItemToOrder(item, myOrder);
 
         // Assert
