@@ -6,7 +6,7 @@ public interface GenericRepository<TEntity>
 {
     TEntity getById(int id);
     List<TEntity> getAll();
-    void add(TEntity entity);
-    void update(TEntity entity);
-    void delete(TEntity entity);
+    boolean add(TEntity entity);
+    boolean update(TEntity entity);
+    boolean delete(TEntity entity);
 }
