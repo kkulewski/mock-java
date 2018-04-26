@@ -27,12 +27,18 @@ public class OrderService
 
     public boolean addItemToOrder(Item item, Order order)
     {
-        if (orderItemRepo.getByItemId(item.getId()) == null)
+        if (item == null || order == null)
         {
-            OrderItem orderItem = new OrderItem(order.getId(), item.getId());
-            return orderItemRepo.add(orderItem);
+            return false;
         }
 
-        return false;
+        boolean alreadyTaken = orderItemRepo.getByItemId(item.getId()) != null;
+        if (alreadyTaken)
+        {
+            return false;
+        }
+
+        OrderItem orderItem = new OrderItem(order.getId(), item.getId());
+        return orderItemRepo.add(orderItem);
     }
 }
