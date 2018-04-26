@@ -4,6 +4,12 @@ public class Order extends Entity
 {
     private int clientId;
 
+    public Order(int id, int clientId)
+    {
+        this.id = id;
+        this.clientId = clientId;
+    }
+
     public int getClientId()
     {
         return clientId;

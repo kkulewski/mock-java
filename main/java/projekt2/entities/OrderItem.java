@@ -5,6 +5,12 @@ public class OrderItem extends Entity
     private int orderId;
     private int itemId;
 
+    public OrderItem(int orderId, int itemId)
+    {
+        this.orderId = orderId;
+        this.itemId = itemId;
+    }
+
     public int getOrderId()
     {
         return orderId;
