@@ -6,6 +6,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
 import projekt2.entities.*;
 import projekt2.extensions.MockitoExtension;
+import projekt2.repositories.ItemRepository;
 import projekt2.repositories.OrderItemRepository;
 import projekt2.repositories.OrderRepository;
 
@@ -22,6 +23,7 @@ public class OrderServiceMockitoTest
 {
     private OrderRepository orderRepo;
     private OrderItemRepository orderItemRepo;
+    private ItemRepository itemRepo;
     private OrderService os;
 
     @BeforeEach
@@ -29,7 +31,8 @@ public class OrderServiceMockitoTest
     {
         orderRepo = Mockito.mock(OrderRepository.class);
         orderItemRepo = Mockito.mock(OrderItemRepository.class);
-        os = new OrderService(orderRepo, orderItemRepo);
+        itemRepo = Mockito.mock(ItemRepository.class);
+        os = new OrderService(orderRepo, orderItemRepo, itemRepo);
     }
 
     @Test

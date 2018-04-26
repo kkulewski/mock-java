@@ -4,20 +4,24 @@ import projekt2.entities.Client;
 import projekt2.entities.Item;
 import projekt2.entities.Order;
 import projekt2.entities.OrderItem;
+import projekt2.repositories.ItemRepository;
 import projekt2.repositories.OrderItemRepository;
 import projekt2.repositories.OrderRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class OrderService
 {
     private OrderRepository orderRepo;
     private OrderItemRepository orderItemRepo;
+    private ItemRepository itemRepo;
 
-    public OrderService(OrderRepository orderRepo, OrderItemRepository orderItemRepo)
+    public OrderService(OrderRepository orderRepo, OrderItemRepository orderItemRepo, ItemRepository itemRepo)
     {
         this.orderRepo = orderRepo;
         this.orderItemRepo = orderItemRepo;
+        this.itemRepo = itemRepo;
     }
 
     public List<Order> getClientOrders(Client client)
