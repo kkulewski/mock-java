@@ -12,13 +12,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doReturn;
 
 @ExtendWith(MockitoExtension.class)
-public class OrderServiceMockitoTest
+class OrderServiceMockitoTest
 {
     private OrderRepository orderRepo;
     private OrderItemRepository orderItemRepo;
@@ -145,5 +144,27 @@ public class OrderServiceMockitoTest
         assertThatThrownBy(() -> os.getItemsForGivenOrder(null))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("order is null");
+    }
+
+    @Test
+    void getOrderTotalValueReturnsExpectedValue()
+    {
+        // Arrange
+        Order order = new Order(1, 10);
+        Item item1 = new Item(1, "uKeyboard", 100.0);
+        Item item2 = new Item(2, "uSpeakers", 200.0);
+        OrderItem orderItem1 = new OrderItem(order.getId(), item1.getId());
+        OrderItem orderItem2 = new OrderItem(order.getId(), item2.getId());
+        List<OrderItem> orderItems = Arrays.asList(orderItem1, orderItem2);
+        doReturn(orderItems).when(orderItemRepo).getByOrderId(order.getId());
+        doReturn(item1).when(itemRepo).getById(item1.getId());
+        doReturn(item2).when(itemRepo).getById(item2.getId());
+
+        // Act
+        double result = os.getOrderTotalValue(order);
+
+        // Assert
+        double expected = item1.getValue() + item2.getValue();
+        assertThat(result).isCloseTo(expected, within(0.01));
     }
 }
