@@ -22,4 +22,18 @@ public class ItemService
     {
         return itemRepo.getAll();
     }
+
+    public List<Item> getAllNotOrderedItems()
+    {
+        List<Item> notOrdered = new ArrayList<>();
+        for (Item it : getAllItems())
+        {
+            if (orderItemRepo.getByItemId(it.getId()) == null)
+            {
+                notOrdered.add(it);
+            }
+        }
+
+        return notOrdered;
+    }
 }
