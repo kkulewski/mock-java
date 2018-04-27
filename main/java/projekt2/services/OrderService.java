@@ -66,4 +66,10 @@ public class OrderService
 
         return items;
     }
+
+    public double getOrderTotalValue(Order order)
+    {
+        List<Item> items = getItemsForGivenOrder(order);
+        return items.stream().mapToDouble(o -> o.getValue()).sum();
+    }
 }
