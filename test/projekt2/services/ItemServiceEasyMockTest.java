@@ -22,12 +22,20 @@ class ItemServiceEasyMockTest
     private ItemRepository itemRepo;
     private ItemService is;
 
+    private Item itemApple;
+    private Item itemOrange;
+    private Item itemCherry;
+
     @BeforeEach
     void setup()
     {
         orderItemRepo = EasyMock.createMock(OrderItemRepository.class);
         itemRepo = EasyMock.createMock(ItemRepository.class);
         is = new ItemService(itemRepo, orderItemRepo);
+
+        itemApple = new Item(1, "Apple", 2.0);
+        itemOrange = new Item(2, "Orange", 1.5);
+        itemCherry = new Item(3, "Cherry", 0.3);
     }
 
     @Test
@@ -48,14 +56,14 @@ class ItemServiceEasyMockTest
     void getAllNotOrderedItemsWithAllOrderedReturnsEmptyList()
     {
         // Arrange
-        Item item1 = new Item(1, "Apple", 2.0);
-        Item item2 = new Item(2, "Orange", 1.5);
-        List<Item> items = Arrays.asList(item1, item2);
+        List<Item> items = Arrays.asList(itemApple, itemOrange);
         expect(itemRepo.getAll()).andReturn(items);
         replay(itemRepo);
 
-        expect(orderItemRepo.getByItemId(item1.getId())).andReturn(new OrderItem(1, item1.getId()));
-        expect(orderItemRepo.getByItemId(item2.getId())).andReturn(new OrderItem(1, item2.getId()));
+        expect(orderItemRepo.getByItemId(itemApple.getId()))
+                .andReturn(new OrderItem(1, itemApple.getId()));
+        expect(orderItemRepo.getByItemId(itemOrange.getId()))
+                .andReturn(new OrderItem(1, itemOrange.getId()));
         replay(orderItemRepo);
 
         // Act
@@ -63,5 +71,28 @@ class ItemServiceEasyMockTest
 
         // Assert
         assertThat(result).isEmpty();
+    }
+
+    @Test
+    void getAllNotOrderedItemsWithSomeOrderedReturnsExpectedItems()
+    {
+        // Arrange
+        List<Item> items = Arrays.asList(itemApple, itemOrange, itemCherry);
+        expect(itemRepo.getAll()).andReturn(items);
+        replay(itemRepo);
+
+        expect(orderItemRepo.getByItemId(itemApple.getId()))
+                .andReturn(null);
+        expect(orderItemRepo.getByItemId(itemOrange.getId()))
+                .andReturn(new OrderItem(1, itemOrange.getId()));
+        expect(orderItemRepo.getByItemId(itemCherry.getId()))
+                .andReturn(null);
+        replay(orderItemRepo);
+
+        // Act
+        List<Item> result = is.getAllNotOrderedItems();
+
+        // Assert
+        assertThat(result).containsExactlyInAnyOrder(itemApple, itemCherry);
     }
 }
