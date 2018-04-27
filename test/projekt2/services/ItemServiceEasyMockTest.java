@@ -4,10 +4,12 @@ import org.easymock.EasyMock;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import projekt2.entities.Item;
+import projekt2.entities.OrderItem;
 import projekt2.repositories.ItemRepository;
 import projekt2.repositories.OrderItemRepository;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -40,5 +42,28 @@ class ItemServiceEasyMockTest
 
         // Assert
         assertThat(items).isEmpty();
+    }
+
+    @Test
+    void getAllNotOrderedItemsWithAllOrderedReturnsEmptyList()
+    {
+        // Arrange
+        Item item1 = new Item(1, "Apple", 2.0);
+        Item item2 = new Item(2, "Orange", 1.5);
+        List<Item> items = Arrays.asList(item1, item2);
+        expect(itemRepo.getAll()).andReturn(items);
+        replay(itemRepo);
+
+        OrderItem orderItem1 = new OrderItem(1, item1.getId());
+        OrderItem orderItem2 = new OrderItem(1, item2.getId());
+        expect(orderItemRepo.getByItemId(item1.getId())).andReturn(orderItem1);
+        expect(orderItemRepo.getByItemId(item2.getId())).andReturn(orderItem2);
+        replay(orderItemRepo);
+
+        // Act
+        List<Item> result = is.getAllNotOrderedItems();
+
+        // Assert
+        assertThat(result).isEmpty();
     }
 }
