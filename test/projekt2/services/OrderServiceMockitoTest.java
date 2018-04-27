@@ -6,9 +6,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
 import projekt2.entities.*;
 import projekt2.extensions.MockitoExtension;
-import projekt2.repositories.ItemRepository;
-import projekt2.repositories.OrderItemRepository;
-import projekt2.repositories.OrderRepository;
+import projekt2.repositories.*;
 
 import java.util.Arrays;
 import java.util.List;
@@ -40,7 +38,7 @@ public class OrderServiceMockitoTest
     {
         assertThatThrownBy(() -> os.getClientOrders(null))
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessage("client");
+                .hasMessage("client is null");
     }
 
     @Test
@@ -95,5 +93,13 @@ public class OrderServiceMockitoTest
 
         // Assert
         assertThat(wasAdded).isTrue();
+    }
+
+    @Test
+    void getItemsForGivenOrderThrowsWhenOrderIsNull()
+    {
+        assertThatThrownBy(() -> os.getItemsForGivenOrder(null))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("order is null");
     }
 }

@@ -28,7 +28,7 @@ public class OrderService
     {
         if (client == null)
         {
-            throw new IllegalArgumentException("client");
+            throw new IllegalArgumentException("client is null");
         }
 
         return orderRepo.getByClientId(client.getId());
@@ -49,5 +49,21 @@ public class OrderService
 
         OrderItem orderItem = new OrderItem(order.getId(), item.getId());
         return orderItemRepo.add(orderItem);
+    }
+
+    public List<Item> getItemsForGivenOrder(Order order)
+    {
+        if (order == null)
+        {
+            throw new IllegalArgumentException("order is null");
+        }
+
+        List<Item> items = new ArrayList<>();
+        for (OrderItem o : orderItemRepo.getByOrderId(order.getId()))
+        {
+            items.add(itemRepo.getById(o.getItemId()));
+        }
+
+        return items;
     }
 }
