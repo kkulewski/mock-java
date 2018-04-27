@@ -167,4 +167,18 @@ class OrderServiceMockitoTest
         double expected = item1.getValue() + item2.getValue();
         assertThat(result).isCloseTo(expected, within(0.01));
     }
+
+    @Test
+    void getOrderTotalValueWithEmptyOrderReturnsZero()
+    {
+        // Arrange
+        Order emptyOrder = new Order(1, 10);
+        doReturn(new ArrayList<>()).when(orderItemRepo).getByOrderId(emptyOrder.getId());
+
+        // Act
+        double result = os.getOrderTotalValue(emptyOrder);
+
+        // Assert
+        assertThat(result).isZero();
+    }
 }
