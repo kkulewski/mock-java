@@ -8,6 +8,7 @@ import projekt2.entities.*;
 import projekt2.extensions.MockitoExtension;
 import projekt2.repositories.*;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -122,5 +123,19 @@ public class OrderServiceMockitoTest
 
         // Assert
         assertThat(result).containsExactlyInAnyOrder(item1, item2);
+    }
+
+    @Test
+    void getItemsForGivenOrderWithEmptyOrderReturnsEmptyList()
+    {
+        // Arrange
+        Order emptyOrder = new Order(1, 10);
+        doReturn(new ArrayList<>()).when(orderItemRepo).getByOrderId(emptyOrder.getId());
+
+        // Act
+        List<Item> result = os.getItemsForGivenOrder(emptyOrder);
+
+        // Assert
+        assertThat(result).isEmpty();
     }
 }
