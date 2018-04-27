@@ -54,10 +54,8 @@ class ItemServiceEasyMockTest
         expect(itemRepo.getAll()).andReturn(items);
         replay(itemRepo);
 
-        OrderItem orderItem1 = new OrderItem(1, item1.getId());
-        OrderItem orderItem2 = new OrderItem(1, item2.getId());
-        expect(orderItemRepo.getByItemId(item1.getId())).andReturn(orderItem1);
-        expect(orderItemRepo.getByItemId(item2.getId())).andReturn(orderItem2);
+        expect(orderItemRepo.getByItemId(item1.getId())).andReturn(new OrderItem(1, item1.getId()));
+        expect(orderItemRepo.getByItemId(item2.getId())).andReturn(new OrderItem(1, item2.getId()));
         replay(orderItemRepo);
 
         // Act
