@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import projekt2.entities.Client;
 import projekt2.mocks.ClientValidatorAlwaysFalseStub;
 import projekt2.mocks.ClientValidatorAlwaysTrueStub;
-import projekt2.mocks.InMemoryClientRepository;
+import projekt2.mocks.ClientRepositoryInMemoryMock;
 import projekt2.repositories.ClientRepository;
 import projekt2.validators.ClientValidator;
 
@@ -21,7 +21,7 @@ public class ClientServiceManualTest
     @BeforeEach
     void setup()
     {
-        this.clientRepo = new InMemoryClientRepository();
+        this.clientRepo = new ClientRepositoryInMemoryMock();
         this.clientValidator = new ClientValidatorAlwaysTrueStub();
         this.clientService = new ClientService(clientValidator, clientRepo);
         this.johnDoe = new Client(1, "John", "Doe", "jdoe@test.com");
@@ -32,6 +32,19 @@ public class ClientServiceManualTest
     {
         // Arrange
         this.clientService = new ClientService(new ClientValidatorAlwaysFalseStub(), this.clientRepo);
+
+        // Act
+        boolean result = clientService.addClient(johnDoe);
+
+        // Assert
+        assertThat(result).isFalse();
+    }
+
+    @Test
+    void addClientWhenClientAlreadyExistsReturnsFalse()
+    {
+        // Arrange
+        clientService.addClient(johnDoe);
 
         // Act
         boolean result = clientService.addClient(johnDoe);
