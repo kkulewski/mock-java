@@ -1,4 +1,4 @@
-package projekt2.repositories.inMemory;
+package projekt2.repositories;
 
 import com.google.common.collect.Iterables;
 import projekt2.entities.Entity;
