@@ -147,4 +147,21 @@ class ItemServiceEasyMockTest
         // Assert
         assertThat(result).isFalse();
     }
+
+    @Test
+    void deleteItemWhenItemIsNotOrderedYetReturnsTrue()
+    {
+        // Arrange
+        expect(itemRepo.getAll()).andReturn(Arrays.asList(itemApple));
+        expect(itemRepo.delete(itemApple)).andReturn(true);
+        replay(itemRepo);
+        expect(orderItemRepo.getByItemId(itemApple.getId())).andReturn(null);
+        replay(orderItemRepo);
+
+        // Act
+        boolean result = is.deleteItem(itemApple);
+
+        // Assert
+        assertThat(result).isTrue();
+    }
 }
