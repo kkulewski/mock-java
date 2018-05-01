@@ -60,4 +60,19 @@ public class ItemService
 
         return itemRepo.delete(item);
     }
+
+    public boolean updateItem(Item item)
+    {
+        if (!itemValidator.isValid(item))
+        {
+            return false;
+        }
+
+        if (itemRepo.getById(item.getId()) == null)
+        {
+            return false;
+        }
+
+        return itemRepo.update(item);
+    }
 }
