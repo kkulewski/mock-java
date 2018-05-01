@@ -70,4 +70,17 @@ public class ClientServiceManualTest
     {
         assertThat(clientService.deleteClient(johnDoe)).isFalse();
     }
+
+    @Test
+    void deleteClientWhenClientIsValidAndExistsReturnsTrue()
+    {
+        // Arrange
+        clientRepo.add(johnDoe);
+
+        // Act
+        boolean result = clientService.deleteClient(johnDoe);
+
+        // Assert
+        assertThat(result).isTrue();
+    }
 }
