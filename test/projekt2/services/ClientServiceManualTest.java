@@ -44,7 +44,7 @@ public class ClientServiceManualTest
     void addClientWhenClientAlreadyExistsReturnsFalse()
     {
         // Arrange
-        clientService.addClient(johnDoe);
+        clientRepo.add(johnDoe);
 
         // Act
         boolean result = clientService.addClient(johnDoe);
