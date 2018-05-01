@@ -130,4 +130,21 @@ class ItemServiceEasyMockTest
         // Assert
         assertThat(result).isTrue();
     }
+
+    @Test
+    void deleteItemWhenItemIsAlreadyInSomeOrderReturnsFalse()
+    {
+        // Arrange
+        OrderItem someOrderItem = new OrderItem(1, 1);
+        expect(itemRepo.getAll()).andReturn(Arrays.asList(itemApple));
+        replay(itemRepo);
+        expect(orderItemRepo.getByItemId(itemApple.getId())).andReturn(someOrderItem);
+        replay(orderItemRepo);
+
+        // Act
+        boolean result = is.deleteItem(itemApple);
+
+        // Assert
+        assertThat(result).isFalse();
+    }
 }
