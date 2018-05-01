@@ -52,4 +52,10 @@ public class ClientServiceManualTest
         // Assert
         assertThat(result).isFalse();
     }
+
+    @Test
+    void addClientWhenClientIsValidAndDoesNotExistYetReturnsTrue()
+    {
+        assertThat(clientService.addClient(johnDoe)).isTrue();
+    }
 }
