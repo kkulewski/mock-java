@@ -115,4 +115,20 @@ class ItemServiceEasyMockTest
         assertThat(result).isFalse();
     }
 
+    @Test
+    void addItemWithValidItemReturnsTrue()
+    {
+        // Arrange
+        Item item = new Item(1, "Apple", 1.0);
+        expect(itemValidator.isValid(item)).andReturn(true);
+        replay(itemValidator);
+        expect(itemRepo.add(item)).andReturn(true);
+        replay(itemRepo);
+
+        // Act
+        boolean result = is.addItem(item);
+
+        // Assert
+        assertThat(result).isTrue();
+    }
 }
