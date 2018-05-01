@@ -14,9 +14,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.easymock.EasyMock.anyObject;
-import static org.easymock.EasyMock.expect;
-import static org.easymock.EasyMock.replay;
+import static org.easymock.EasyMock.*;
 
 class ItemServiceEasyMockTest
 {
@@ -171,6 +169,22 @@ class ItemServiceEasyMockTest
         // Arrange
         expect(itemValidator.isValid(anyObject())).andReturn(false);
         replay(itemValidator);
+
+        // Act
+        boolean result = is.updateItem(itemApple);
+
+        // Assert
+        assertThat(result).isFalse();
+    }
+
+    @Test
+    void updateItemWithItemThatDoesNotExistReturnsFalse()
+    {
+        // Arrange
+        expect(itemValidator.isValid(anyObject())).andReturn(true);
+        replay(itemValidator);
+        expect(itemRepo.getById(anyInt())).andReturn(null);
+        replay(itemRepo);
 
         // Act
         boolean result = is.updateItem(itemApple);
