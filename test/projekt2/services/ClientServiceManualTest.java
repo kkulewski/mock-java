@@ -7,6 +7,7 @@ import projekt2.mocks.ClientValidatorAlwaysFalseStub;
 import projekt2.mocks.ClientValidatorAlwaysTrueStub;
 import projekt2.mocks.ClientRepositoryInMemoryMock;
 import projekt2.repositories.ClientRepository;
+import projekt2.repositories.OrderRepository;
 import projekt2.validators.ClientValidator;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -14,6 +15,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class ClientServiceManualTest
 {
     private ClientRepository clientRepo;
+    private OrderRepository orderRepository;
     private ClientValidator clientValidator;
     private ClientService clientService;
     private Client johnDoe;
@@ -23,7 +25,7 @@ public class ClientServiceManualTest
     {
         this.clientRepo = new ClientRepositoryInMemoryMock();
         this.clientValidator = new ClientValidatorAlwaysTrueStub();
-        this.clientService = new ClientService(clientValidator, clientRepo);
+        this.clientService = new ClientService(clientValidator, clientRepo, orderRepository);
         this.johnDoe = new Client(1, "John", "Doe", "jdoe@test.com");
     }
 
@@ -31,7 +33,8 @@ public class ClientServiceManualTest
     void addClientWithInvalidClientReturnsFalse()
     {
         // Arrange
-        this.clientService = new ClientService(new ClientValidatorAlwaysFalseStub(), this.clientRepo);
+        this.clientService =
+                new ClientService(new ClientValidatorAlwaysFalseStub(), this.clientRepo, this.orderRepository);
 
         // Act
         boolean result = clientService.addClient(johnDoe);
