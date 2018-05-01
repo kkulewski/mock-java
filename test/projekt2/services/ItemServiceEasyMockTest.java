@@ -164,4 +164,18 @@ class ItemServiceEasyMockTest
         // Assert
         assertThat(result).isTrue();
     }
+
+    @Test
+    void updateItemWithInvalidItemReturnsFalse()
+    {
+        // Arrange
+        expect(itemValidator.isValid(anyObject())).andReturn(false);
+        replay(itemValidator);
+
+        // Act
+        boolean result = is.updateItem(itemApple);
+
+        // Assert
+        assertThat(result).isFalse();
+    }
 }
