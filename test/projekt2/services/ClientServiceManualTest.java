@@ -6,6 +6,7 @@ import projekt2.entities.Client;
 import projekt2.mocks.ClientValidatorAlwaysFalseStub;
 import projekt2.mocks.ClientValidatorAlwaysTrueStub;
 import projekt2.mocks.ClientRepositoryInMemoryMock;
+import projekt2.mocks.OrderRepositoryEmptyStub;
 import projekt2.repositories.ClientRepository;
 import projekt2.repositories.OrderRepository;
 import projekt2.validators.ClientValidator;
@@ -24,6 +25,7 @@ public class ClientServiceManualTest
     void setup()
     {
         this.clientRepo = new ClientRepositoryInMemoryMock();
+        this.orderRepository = new OrderRepositoryEmptyStub();
         this.clientValidator = new ClientValidatorAlwaysTrueStub();
         this.clientService = new ClientService(clientValidator, clientRepo, orderRepository);
         this.johnDoe = new Client(1, "John", "Doe", "jdoe@test.com");

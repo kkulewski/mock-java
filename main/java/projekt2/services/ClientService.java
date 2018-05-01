@@ -35,6 +35,11 @@ public class ClientService
             return false;
         }
 
+        if (!orderRepo.getByClientId(client.getId()).isEmpty())
+        {
+            return false;
+        }
+
         return clientRepo.delete(client);
     }
 }
