@@ -14,6 +14,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.easymock.EasyMock.anyObject;
 import static org.easymock.EasyMock.expect;
 import static org.easymock.EasyMock.replay;
 
@@ -98,4 +99,20 @@ class ItemServiceEasyMockTest
         // Assert
         assertThat(result).containsExactlyInAnyOrder(itemApple, itemCherry);
     }
+
+    @Test
+    void addItemWithInvalidItemReturnsFalse()
+    {
+        // Arrange
+        Item item = null;
+        expect(itemValidator.isValid(anyObject())).andReturn(false);
+        replay(itemValidator);
+
+        // Act
+        boolean result = is.addItem(item);
+
+        // Assert
+        assertThat(result).isFalse();
+    }
+
 }
