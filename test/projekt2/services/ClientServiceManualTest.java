@@ -58,4 +58,10 @@ public class ClientServiceManualTest
     {
         assertThat(clientService.addClient(johnDoe)).isTrue();
     }
+
+    @Test
+    void deleteClientWithNullClientReturnsFalse()
+    {
+        assertThat(clientService.deleteClient(null)).isFalse();
+    }
 }

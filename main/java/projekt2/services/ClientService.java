@@ -24,4 +24,14 @@ public class ClientService
 
         return clientRepo.add(client);
     }
+
+    public boolean deleteClient(Client client)
+    {
+        if (client == null)
+        {
+            return false;
+        }
+
+        return clientRepo.delete(client);
+    }
 }
