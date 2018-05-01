@@ -49,4 +49,15 @@ public class ItemService
 
         return itemRepo.add(item);
     }
+
+    public boolean deleteItem(Item item)
+    {
+        List<Item> notOrdered = getAllNotOrderedItems();
+        if (!notOrdered.contains(item))
+        {
+            return false;
+        }
+
+        return itemRepo.delete(item);
+    }
 }
