@@ -192,4 +192,21 @@ class ItemServiceEasyMockTest
         // Assert
         assertThat(result).isFalse();
     }
+
+    @Test
+    void updateItemWithValidItemThatExistsInRepoReturnsTrue()
+    {
+        // Arrange
+        expect(itemValidator.isValid(anyObject())).andReturn(true);
+        replay(itemValidator);
+        expect(itemRepo.getById(itemApple.getId())).andReturn(itemApple);
+        expect(itemRepo.update(itemApple)).andReturn(true);
+        replay(itemRepo);
+
+        // Act
+        boolean result = is.updateItem(itemApple);
+
+        // Assert
+        assertThat(result).isTrue();
+    }
 }
