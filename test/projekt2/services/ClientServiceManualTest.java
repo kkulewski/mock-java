@@ -83,4 +83,21 @@ public class ClientServiceManualTest
         // Assert
         assertThat(result).isTrue();
     }
+
+    @Test
+    void deleteClientActuallyDeletesExistingClient()
+    {
+        // Arrange
+        clientRepo.add(new Client(5, "Jack", "Black", "jblack@test.com"));
+        clientRepo.add(new Client(6, "Jack", "White", "jwhite@test.com"));
+        clientRepo.add(johnDoe);
+
+        // Act
+        clientService.deleteClient(johnDoe);
+
+        // Assert
+        assertThat(clientRepo.getAll())
+                .doesNotContain(johnDoe)
+                .hasSize(2);
+    }
 }
