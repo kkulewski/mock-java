@@ -64,4 +64,10 @@ public class ClientServiceManualTest
     {
         assertThat(clientService.deleteClient(null)).isFalse();
     }
+
+    @Test
+    void deleteClientWhenClientDoesNotExistReturnsFalse()
+    {
+        assertThat(clientService.deleteClient(johnDoe)).isFalse();
+    }
 }
