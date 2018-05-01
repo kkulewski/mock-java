@@ -7,6 +7,7 @@ import projekt2.entities.Item;
 import projekt2.entities.OrderItem;
 import projekt2.repositories.ItemRepository;
 import projekt2.repositories.OrderItemRepository;
+import projekt2.validators.ItemValidator;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -20,6 +21,7 @@ class ItemServiceEasyMockTest
 {
     private OrderItemRepository orderItemRepo;
     private ItemRepository itemRepo;
+    private ItemValidator itemValidator;
     private ItemService is;
 
     private Item itemApple;
@@ -31,7 +33,8 @@ class ItemServiceEasyMockTest
     {
         orderItemRepo = EasyMock.createMock(OrderItemRepository.class);
         itemRepo = EasyMock.createMock(ItemRepository.class);
-        is = new ItemService(itemRepo, orderItemRepo);
+        itemValidator = EasyMock.createMock(ItemValidator.class);
+        is = new ItemService(itemRepo, orderItemRepo, itemValidator);
 
         itemApple = new Item(1, "Apple", 2.0);
         itemOrange = new Item(2, "Orange", 1.5);
