@@ -40,7 +40,7 @@ public class OrderServiceJMockTest
         Client client = new Client(1, "John", "Doe", "johndoe@email.com");
         List<Order> expectedOrders = Arrays.asList(new Order(1, client.getId()), new Order(2, client.getId()));
         context.checking(new Expectations(){{
-            oneOf (orderRepo).getByClientId(client.getId()); will(returnValue(expectedOrders));
+            oneOf(orderRepo).getByClientId(client.getId()); will(returnValue(expectedOrders));
         }});
 
         // Act
@@ -48,6 +48,7 @@ public class OrderServiceJMockTest
 
         // Assert
         assertThat(result).containsAll(expectedOrders);
+        context.assertIsSatisfied();
     }
 
     @Test
@@ -59,7 +60,8 @@ public class OrderServiceJMockTest
         Item item = new Item(1, "uKeyboard", 100.0);
         OrderItem orderItem = new OrderItem(anotherOrder.getId(), item.getId());
         context.checking(new Expectations(){{
-            oneOf (orderItemRepo).getByItemId(item.getId()); will(returnValue(orderItem));
+            oneOf(orderItemRepo).getByItemId(item.getId()); will(returnValue(orderItem));
+            never(orderItemRepo).add(with(any(OrderItem.class)));
         }});
 
         // Act
@@ -67,6 +69,7 @@ public class OrderServiceJMockTest
 
         // Assert
         assertThat(wasAdded).isFalse();
+        context.assertIsSatisfied();
     }
 
     @Test
@@ -76,8 +79,8 @@ public class OrderServiceJMockTest
         Order myOrder = new Order(2, 1);
         Item item = new Item(1, "uKeyboard", 100.0);
         context.checking(new Expectations(){{
-            oneOf (orderItemRepo).getByItemId(item.getId()); will(returnValue(null));
-            oneOf (orderItemRepo).add(with(any(OrderItem.class))); will(returnValue(true));
+            oneOf(orderItemRepo).getByItemId(item.getId()); will(returnValue(null));
+            oneOf(orderItemRepo).add(with(any(OrderItem.class))); will(returnValue(true));
         }});
 
         // Act
@@ -85,5 +88,6 @@ public class OrderServiceJMockTest
 
         // Assert
         assertThat(wasAdded).isTrue();
+        context.assertIsSatisfied();
     }
 }
