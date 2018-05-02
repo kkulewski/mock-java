@@ -190,4 +190,18 @@ class OrderServiceMockitoTest
                 .hasMessage("order is null");
     }
 
+    @Test
+    void clearOrderItemsWithConfirmedOrderReturnsFalse()
+    {
+        // Arrange
+        Order order = new Order(1, 1);
+        order.setConfirmed(true);
+
+        // Act
+        boolean result = orderService.clearOrderItems(order);
+
+        // Assert
+        assertThat(result).isFalse();
+    }
+
 }
