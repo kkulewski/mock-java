@@ -136,4 +136,10 @@ public class ClientServiceManualTest
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("client is null");
     }
+
+    @Test
+    void updateClientReturnsFalseWhenClientDoesNotExist()
+    {
+        assertThat(clientService.updateClient(johnDoe)).isFalse();
+    }
 }
