@@ -1,5 +1,7 @@
 # Testowanie aplikacji JAVA 2017-2018
-Wybrane zadanie #6 - [![Build Status](https://travis-ci.com/TestowanieJAVA2017-2018Gr2/projekt2-kkulewski.svg?token=raYvD9MwETMyAUKsjNr7&branch=master)](https://travis-ci.com/TestowanieJAVA2017-2018Gr2/projekt2-kkulewski)
+| Travis CI Status | Coverage | Maintainability | BetterCodeHub | Projekt |
+:--:|:--:|:--:|:--:|:--:
+[![Build Status](https://travis-ci.com/TestowanieJAVA2017-2018Gr2/projekt2-kkulewski.svg?token=raYvD9MwETMyAUKsjNr7&branch=master)](https://travis-ci.com/TestowanieJAVA2017-2018Gr2/projekt2-kkulewski) | [![Test Coverage](https://api.codeclimate.com/v1/badges/2cfcd39b980b1315e332/test_coverage)](https://codeclimate.com/github/TestowanieJAVA2017-2018Gr2/projekt2-kkulewski/test_coverage) | [![Maintainability](https://api.codeclimate.com/v1/badges/2cfcd39b980b1315e332/maintainability)](https://codeclimate.com/github/TestowanieJAVA2017-2018Gr2/projekt2-kkulewski/maintainability) | - | 6
 
 ## Projekt 2 (Maven, JUnit oraz atrapy) 
 
