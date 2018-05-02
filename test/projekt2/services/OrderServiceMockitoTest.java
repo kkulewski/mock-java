@@ -204,4 +204,21 @@ class OrderServiceMockitoTest
         assertThat(result).isFalse();
     }
 
+    @Test
+    void clearOrderItemsWithTwoItemsCallsDeleteTwoTimes()
+    {
+        // Arrange
+        Order order = new Order(1, 1);
+        OrderItem orderItem1 = new OrderItem(order.getId(), 1);
+        OrderItem orderItem2 = new OrderItem(order.getId(), 2);
+        List<OrderItem> orderItems = Arrays.asList(orderItem1, orderItem2);
+        doReturn(orderItems).when(orderItemRepo).getByOrderId(order.getId());
+
+        // Act
+        orderService.clearOrderItems(order);
+
+        // Assert
+        Mockito.verify(orderItemRepo, Mockito.times(1)).delete(orderItem1);
+        Mockito.verify(orderItemRepo, Mockito.times(1)).delete(orderItem2);
+    }
 }
