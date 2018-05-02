@@ -4,7 +4,9 @@ import org.jmock.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import projekt2.entities.Client;
+import projekt2.entities.Item;
 import projekt2.entities.Order;
+import projekt2.entities.OrderItem;
 import projekt2.repositories.ItemRepository;
 import projekt2.repositories.OrderItemRepository;
 import projekt2.repositories.OrderRepository;
@@ -46,5 +48,24 @@ public class OrderServiceJMockTest
 
         // Assert
         assertThat(result).containsAll(expectedOrders);
+    }
+
+    @Test
+    void addItemToOrderReturnsFalseWhenItemIsAlreadyInAnotherOrder()
+    {
+        // Arrange
+        Order myOrder = new Order(2, 1);
+        Order anotherOrder = new Order(1, 10);
+        Item item = new Item(1, "uKeyboard", 100.0);
+        OrderItem orderItem = new OrderItem(anotherOrder.getId(), item.getId());
+        context.checking(new Expectations(){{
+            oneOf (orderItemRepo).getByItemId(item.getId()); will(returnValue(orderItem));
+        }});
+
+        // Act
+        boolean wasAdded = orderService.addItemToOrder(item, myOrder);
+
+        // Assert
+        assertThat(wasAdded).isFalse();
     }
 }
