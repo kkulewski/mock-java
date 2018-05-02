@@ -72,4 +72,25 @@ public class OrderService
         List<Item> items = getItemsForGivenOrder(order);
         return items.stream().mapToDouble(o -> o.getValue()).sum();
     }
+
+    public boolean clearOrderItems(Order order)
+    {
+        if (order == null)
+        {
+            throw new IllegalArgumentException("order is null");
+        }
+
+        if (order.isConfirmed())
+        {
+            return false;
+        }
+
+        List<OrderItem> orderItems = orderItemRepo.getByOrderId(order.getId());
+        for (OrderItem o : orderItems)
+        {
+            orderItemRepo.delete(o);
+        }
+
+        return true;
+    }
 }

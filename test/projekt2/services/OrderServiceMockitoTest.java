@@ -181,4 +181,13 @@ class OrderServiceMockitoTest
         // Assert
         assertThat(result).isZero();
     }
+
+    @Test
+    void clearOrderThrowsWhenOrderIsNull()
+    {
+        assertThatThrownBy(() -> orderService.clearOrderItems(null))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("order is null");
+    }
+
 }
