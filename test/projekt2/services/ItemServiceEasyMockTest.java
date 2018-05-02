@@ -21,7 +21,7 @@ class ItemServiceEasyMockTest
     private OrderItemRepository orderItemRepo;
     private ItemRepository itemRepo;
     private ItemValidator itemValidator;
-    private ItemService is;
+    private ItemService itemService;
 
     private Item itemApple;
     private Item itemOrange;
@@ -33,7 +33,7 @@ class ItemServiceEasyMockTest
         orderItemRepo = EasyMock.createMock(OrderItemRepository.class);
         itemRepo = EasyMock.createMock(ItemRepository.class);
         itemValidator = EasyMock.createMock(ItemValidator.class);
-        is = new ItemService(itemRepo, orderItemRepo, itemValidator);
+        itemService = new ItemService(itemRepo, orderItemRepo, itemValidator);
 
         itemApple = new Item(1, "Apple", 2.0);
         itemOrange = new Item(2, "Orange", 1.5);
@@ -48,7 +48,7 @@ class ItemServiceEasyMockTest
         replay(itemRepo);
 
         // Act
-        List<Item> items = is.getAllItems();
+        List<Item> items = itemService.getAllItems();
 
         // Assert
         assertThat(items).isEmpty();
@@ -69,7 +69,7 @@ class ItemServiceEasyMockTest
         replay(orderItemRepo);
 
         // Act
-        List<Item> result = is.getAllNotOrderedItems();
+        List<Item> result = itemService.getAllNotOrderedItems();
 
         // Assert
         assertThat(result).isEmpty();
@@ -92,7 +92,7 @@ class ItemServiceEasyMockTest
         replay(orderItemRepo);
 
         // Act
-        List<Item> result = is.getAllNotOrderedItems();
+        List<Item> result = itemService.getAllNotOrderedItems();
 
         // Assert
         assertThat(result).containsExactlyInAnyOrder(itemApple, itemCherry);
@@ -107,7 +107,7 @@ class ItemServiceEasyMockTest
         replay(itemValidator);
 
         // Act
-        boolean result = is.addItem(item);
+        boolean result = itemService.addItem(item);
 
         // Assert
         assertThat(result).isFalse();
@@ -123,7 +123,7 @@ class ItemServiceEasyMockTest
         replay(itemRepo);
 
         // Act
-        boolean result = is.addItem(itemApple);
+        boolean result = itemService.addItem(itemApple);
 
         // Assert
         assertThat(result).isTrue();
@@ -140,7 +140,7 @@ class ItemServiceEasyMockTest
         replay(orderItemRepo);
 
         // Act
-        boolean result = is.deleteItem(itemApple);
+        boolean result = itemService.deleteItem(itemApple);
 
         // Assert
         assertThat(result).isFalse();
@@ -157,7 +157,7 @@ class ItemServiceEasyMockTest
         replay(orderItemRepo);
 
         // Act
-        boolean result = is.deleteItem(itemApple);
+        boolean result = itemService.deleteItem(itemApple);
 
         // Assert
         assertThat(result).isTrue();
@@ -171,7 +171,7 @@ class ItemServiceEasyMockTest
         replay(itemValidator);
 
         // Act
-        boolean result = is.updateItem(itemApple);
+        boolean result = itemService.updateItem(itemApple);
 
         // Assert
         assertThat(result).isFalse();
@@ -187,7 +187,7 @@ class ItemServiceEasyMockTest
         replay(itemRepo);
 
         // Act
-        boolean result = is.updateItem(itemApple);
+        boolean result = itemService.updateItem(itemApple);
 
         // Assert
         assertThat(result).isFalse();
@@ -204,7 +204,7 @@ class ItemServiceEasyMockTest
         replay(itemRepo);
 
         // Act
-        boolean result = is.updateItem(itemApple);
+        boolean result = itemService.updateItem(itemApple);
 
         // Assert
         assertThat(result).isTrue();

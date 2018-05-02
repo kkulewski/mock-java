@@ -22,7 +22,7 @@ class OrderServiceMockitoTest
     private OrderRepository orderRepo;
     private OrderItemRepository orderItemRepo;
     private ItemRepository itemRepo;
-    private OrderService os;
+    private OrderService orderService;
 
     @BeforeEach
     void setup()
@@ -30,13 +30,13 @@ class OrderServiceMockitoTest
         orderRepo = Mockito.mock(OrderRepository.class);
         orderItemRepo = Mockito.mock(OrderItemRepository.class);
         itemRepo = Mockito.mock(ItemRepository.class);
-        os = new OrderService(orderRepo, orderItemRepo, itemRepo);
+        orderService = new OrderService(orderRepo, orderItemRepo, itemRepo);
     }
 
     @Test
     void getClientOrdersThrowsWhenClientIsNull()
     {
-        assertThatThrownBy(() -> os.getClientOrders(null))
+        assertThatThrownBy(() -> orderService.getClientOrders(null))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("client is null");
     }
@@ -50,7 +50,7 @@ class OrderServiceMockitoTest
         doReturn(expectedOrders).when(orderRepo).getByClientId(client.getId());
 
         // Act
-        List<Order> result = os.getClientOrders(client);
+        List<Order> result = orderService.getClientOrders(client);
 
         // Assert
         assertThat(result).containsAll(expectedOrders);
@@ -59,7 +59,7 @@ class OrderServiceMockitoTest
     @Test
     void addItemToOrderReturnsFalseWhenItemAndOrderAreNull()
     {
-        assertThat(os.addItemToOrder(null, null)).isFalse();
+        assertThat(orderService.addItemToOrder(null, null)).isFalse();
     }
 
     @Test
@@ -73,7 +73,7 @@ class OrderServiceMockitoTest
         doReturn(orderItem).when(orderItemRepo).getByItemId(item.getId());
 
         // Act
-        boolean wasAdded = os.addItemToOrder(item, myOrder);
+        boolean wasAdded = orderService.addItemToOrder(item, myOrder);
 
         // Assert
         assertThat(wasAdded).isFalse();
@@ -89,7 +89,7 @@ class OrderServiceMockitoTest
         doReturn(true).when(orderItemRepo).add(any());
 
         // Act
-        boolean wasAdded = os.addItemToOrder(item, myOrder);
+        boolean wasAdded = orderService.addItemToOrder(item, myOrder);
 
         // Assert
         assertThat(wasAdded).isTrue();
@@ -98,7 +98,7 @@ class OrderServiceMockitoTest
     @Test
     void getItemsForGivenOrderThrowsWhenOrderIsNull()
     {
-        assertThatThrownBy(() -> os.getItemsForGivenOrder(null))
+        assertThatThrownBy(() -> orderService.getItemsForGivenOrder(null))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("order is null");
     }
@@ -118,7 +118,7 @@ class OrderServiceMockitoTest
         doReturn(item2).when(itemRepo).getById(item2.getId());
 
         // Act
-        List<Item> result = os.getItemsForGivenOrder(order);
+        List<Item> result = orderService.getItemsForGivenOrder(order);
 
         // Assert
         assertThat(result).containsExactlyInAnyOrder(item1, item2);
@@ -132,7 +132,7 @@ class OrderServiceMockitoTest
         doReturn(new ArrayList<>()).when(orderItemRepo).getByOrderId(emptyOrder.getId());
 
         // Act
-        List<Item> result = os.getItemsForGivenOrder(emptyOrder);
+        List<Item> result = orderService.getItemsForGivenOrder(emptyOrder);
 
         // Assert
         assertThat(result).isEmpty();
@@ -141,7 +141,7 @@ class OrderServiceMockitoTest
     @Test
     void getOrderTotalValueThrowsWhenOrderIsNull()
     {
-        assertThatThrownBy(() -> os.getItemsForGivenOrder(null))
+        assertThatThrownBy(() -> orderService.getItemsForGivenOrder(null))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("order is null");
     }
@@ -161,7 +161,7 @@ class OrderServiceMockitoTest
         doReturn(item2).when(itemRepo).getById(item2.getId());
 
         // Act
-        double result = os.getOrderTotalValue(order);
+        double result = orderService.getOrderTotalValue(order);
 
         // Assert
         double expected = item1.getValue() + item2.getValue();
@@ -176,7 +176,7 @@ class OrderServiceMockitoTest
         doReturn(new ArrayList<>()).when(orderItemRepo).getByOrderId(emptyOrder.getId());
 
         // Act
-        double result = os.getOrderTotalValue(emptyOrder);
+        double result = orderService.getOrderTotalValue(emptyOrder);
 
         // Assert
         assertThat(result).isZero();
