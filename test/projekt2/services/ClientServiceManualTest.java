@@ -138,8 +138,21 @@ public class ClientServiceManualTest
     }
 
     @Test
-    void updateClientReturnsFalseWhenClientDoesNotExist()
+    void updateClientWhenClientDoesNotExistReturnsFalse()
     {
         assertThat(clientService.updateClient(johnDoe)).isFalse();
+    }
+
+    @Test
+    void updateClientWhenClientIsValidAndExistsReturnsTrue()
+    {
+        // Arrange
+        clientRepo.add(johnDoe);
+
+        // Act
+        boolean result = clientService.updateClient(johnDoe);
+
+        // Assert
+        assertThat(result).isTrue();
     }
 }
