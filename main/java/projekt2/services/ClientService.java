@@ -20,6 +20,11 @@ public class ClientService
 
     public boolean addClient(Client client)
     {
+        if (client == null)
+        {
+            throw new IllegalArgumentException("client is null");
+        }
+
         if (!clientValidator.isValid(client))
         {
             return false;
@@ -32,7 +37,7 @@ public class ClientService
     {
         if (client == null)
         {
-            return false;
+            throw new IllegalArgumentException("client is null");
         }
 
         if (!orderRepo.getByClientId(client.getId()).isEmpty())

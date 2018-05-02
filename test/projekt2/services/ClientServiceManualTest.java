@@ -9,6 +9,7 @@ import projekt2.repositories.OrderRepository;
 import projekt2.validators.ClientValidator;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 public class ClientServiceManualTest
 {
@@ -26,6 +27,14 @@ public class ClientServiceManualTest
         this.clientValidator = new ClientValidatorAlwaysTrueStub();
         this.clientService = new ClientService(clientValidator, clientRepo, orderRepository);
         this.johnDoe = new Client(1, "John", "Doe", "jdoe@test.com");
+    }
+
+    @Test
+    void addClientWhenClientIsNullThrows()
+    {
+        assertThatThrownBy(() -> clientService.addClient(null))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("client is null");
     }
 
     @Test
@@ -62,9 +71,11 @@ public class ClientServiceManualTest
     }
 
     @Test
-    void deleteClientWithNullClientReturnsFalse()
+    void deleteClientWithNullClientThrows()
     {
-        assertThat(clientService.deleteClient(null)).isFalse();
+        assertThatThrownBy(() -> clientService.deleteClient(null))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("client is null");
     }
 
     @Test
