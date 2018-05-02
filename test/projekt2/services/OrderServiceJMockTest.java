@@ -68,4 +68,22 @@ public class OrderServiceJMockTest
         // Assert
         assertThat(wasAdded).isFalse();
     }
+
+    @Test
+    void addItemToOrderReturnsTrueWhenItemWasAdded()
+    {
+        // Arrange
+        Order myOrder = new Order(2, 1);
+        Item item = new Item(1, "uKeyboard", 100.0);
+        context.checking(new Expectations(){{
+            oneOf (orderItemRepo).getByItemId(item.getId()); will(returnValue(null));
+            oneOf (orderItemRepo).add(with(any(OrderItem.class))); will(returnValue(true));
+        }});
+
+        // Act
+        boolean wasAdded = orderService.addItemToOrder(item, myOrder);
+
+        // Assert
+        assertThat(wasAdded).isTrue();
+    }
 }
