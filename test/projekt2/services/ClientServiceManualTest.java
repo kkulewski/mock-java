@@ -171,4 +171,19 @@ public class ClientServiceManualTest
         Client updateResult = clientRepo.getById(johnDoe.getId());
         assertThat(updateResult.getLastName()).isEqualTo("Test");
     }
+
+    @Test
+    void updateClientWhenClientIsInvalidReturnsFalse()
+    {
+        // Arrange
+        this.clientService =
+                new ClientService(new ClientValidatorAlwaysFalseStub(), this.clientRepo, this.orderRepository);
+        clientRepo.add(johnDoe);
+
+        // Act
+        boolean result = clientService.updateClient(johnDoe);
+
+        // Assert
+        assertThat(result).isFalse();
+    }
 }
