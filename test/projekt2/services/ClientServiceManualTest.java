@@ -155,4 +155,20 @@ public class ClientServiceManualTest
         // Assert
         assertThat(result).isTrue();
     }
+
+    @Test
+    void updateClientActuallyUpdatesClient()
+    {
+        // Arrange
+        clientRepo.add(johnDoe);
+        Client updatedClient = johnDoe;
+
+        // Act
+        updatedClient.setLastName("Test");
+        clientService.updateClient(johnDoe);
+
+        // Assert
+        Client updateResult = clientRepo.getById(johnDoe.getId());
+        assertThat(updateResult.getLastName()).isEqualTo("Test");
+    }
 }
