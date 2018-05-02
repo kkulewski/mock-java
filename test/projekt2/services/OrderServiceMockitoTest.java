@@ -68,7 +68,7 @@ class OrderServiceMockitoTest
         // Arrange
         Order myOrder = new Order(2, 1);
         Order anotherOrder = new Order(1, 10);
-        Item item = new Item(1, "uKeyboard", 100.0);
+        Item item = new Item(1, "Some Item", 20.0);
         OrderItem orderItem = new OrderItem(anotherOrder.getId(), item.getId());
         doReturn(orderItem).when(orderItemRepo).getByItemId(item.getId());
 
@@ -84,7 +84,7 @@ class OrderServiceMockitoTest
     {
         // Arrange
         Order myOrder = new Order(2, 1);
-        Item item = new Item(1, "uKeyboard", 100.0);
+        Item item = new Item(1, "Product", 50.0);
         doReturn(null).when(orderItemRepo).getByItemId(item.getId());
         doReturn(true).when(orderItemRepo).add(any());
 
@@ -151,8 +151,8 @@ class OrderServiceMockitoTest
     {
         // Arrange
         Order order = new Order(1, 10);
-        Item item1 = new Item(1, "uKeyboard", 100.0);
-        Item item2 = new Item(2, "uSpeakers", 200.0);
+        Item item1 = new Item(1, "First item", 10.0);
+        Item item2 = new Item(2, "SecondItem", 30.0);
         OrderItem orderItem1 = new OrderItem(order.getId(), item1.getId());
         OrderItem orderItem2 = new OrderItem(order.getId(), item2.getId());
         List<OrderItem> orderItems = Arrays.asList(orderItem1, orderItem2);
