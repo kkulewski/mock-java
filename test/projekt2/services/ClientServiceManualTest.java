@@ -3,10 +3,7 @@ package projekt2.services;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import projekt2.entities.Client;
-import projekt2.mocks.ClientValidatorAlwaysFalseStub;
-import projekt2.mocks.ClientValidatorAlwaysTrueStub;
-import projekt2.mocks.ClientRepositoryInMemoryMock;
-import projekt2.mocks.OrderRepositoryEmptyStub;
+import projekt2.mocks.*;
 import projekt2.repositories.ClientRepository;
 import projekt2.repositories.OrderRepository;
 import projekt2.validators.ClientValidator;
@@ -104,5 +101,20 @@ public class ClientServiceManualTest
         assertThat(clientRepo.getAll())
                 .doesNotContain(johnDoe)
                 .hasSize(2);
+    }
+
+    @Test
+    void deleteClientReturnsFalseWhenClientHasOrders()
+    {
+        // Arrange
+        clientRepo.add(johnDoe);
+        this.clientService =
+                new ClientService(this.clientValidator, this.clientRepo, new OrderRepositoryNonEmptyStub());
+
+        // Act
+        boolean result = clientService.deleteClient(johnDoe);
+
+        // Assert
+        assertThat(result).isFalse();
     }
 }
