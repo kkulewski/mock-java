@@ -17,9 +17,9 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class OrderServiceJMockTest
+class OrderServiceJMockTest
 {
-    Mockery context = new Mockery();
+    private Mockery context = new Mockery();
     private OrderRepository orderRepo;
     private OrderItemRepository orderItemRepo;
     private ItemRepository itemRepo;

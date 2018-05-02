@@ -5,7 +5,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
 import projekt2.entities.*;
-import projekt2.extensions.MockitoExtension;
 import projekt2.repositories.*;
 
 import java.util.ArrayList;
@@ -16,7 +15,6 @@ import static org.assertj.core.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doReturn;
 
-@ExtendWith(MockitoExtension.class)
 class OrderServiceMockitoTest
 {
     private OrderRepository orderRepo;

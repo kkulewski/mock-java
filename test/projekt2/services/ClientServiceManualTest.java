@@ -11,7 +11,7 @@ import projekt2.validators.ClientValidator;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-public class ClientServiceManualTest
+class ClientServiceManualTest
 {
     private ClientRepository clientRepo;
     private OrderRepository orderRepository;
