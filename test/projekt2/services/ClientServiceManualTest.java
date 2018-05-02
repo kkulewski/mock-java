@@ -128,4 +128,12 @@ public class ClientServiceManualTest
         // Assert
         assertThat(result).isFalse();
     }
+
+    @Test
+    void updateClientWhenClientIsNullThrows()
+    {
+        assertThatThrownBy(() -> clientService.updateClient(null))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("client is null");
+    }
 }

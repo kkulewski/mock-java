@@ -20,11 +20,7 @@ public class ClientService
 
     public boolean addClient(Client client)
     {
-        if (client == null)
-        {
-            throw new IllegalArgumentException("client is null");
-        }
-
+        ensureNotNull(client);
         if (!clientValidator.isValid(client))
         {
             return false;
@@ -35,16 +31,31 @@ public class ClientService
 
     public boolean deleteClient(Client client)
     {
-        if (client == null)
-        {
-            throw new IllegalArgumentException("client is null");
-        }
-
+        ensureNotNull(client);
         if (!orderRepo.getByClientId(client.getId()).isEmpty())
         {
             return false;
         }
 
         return clientRepo.delete(client);
+    }
+
+    public boolean updateClient(Client client)
+    {
+        ensureNotNull(client);
+        if (!clientValidator.isValid(client))
+        {
+            return false;
+        }
+
+        return clientRepo.update(client);
+    }
+
+    private void ensureNotNull(Client client)
+    {
+        if (client == null)
+        {
+            throw new IllegalArgumentException("client is null");
+        }
     }
 }
