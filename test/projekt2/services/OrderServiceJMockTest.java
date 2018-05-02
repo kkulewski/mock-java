@@ -11,6 +11,7 @@ import projekt2.repositories.ItemRepository;
 import projekt2.repositories.OrderItemRepository;
 import projekt2.repositories.OrderRepository;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -112,6 +113,23 @@ public class OrderServiceJMockTest
 
         // Assert
         assertThat(result).containsExactlyInAnyOrder(item1, item2);
+        context.assertIsSatisfied();
+    }
+
+    @Test
+    void getItemsForGivenOrderWithEmptyOrderReturnsEmptyList()
+    {
+        // Arrange
+        Order emptyOrder = new Order(1, 10);
+        context.checking(new Expectations(){{
+            oneOf(orderItemRepo).getByOrderId(emptyOrder.getId()); will(returnValue(new ArrayList<>()));
+        }});
+
+        // Act
+        List<Item> result = orderService.getItemsForGivenOrder(emptyOrder);
+
+        // Assert
+        assertThat(result).isEmpty();
         context.assertIsSatisfied();
     }
 }
