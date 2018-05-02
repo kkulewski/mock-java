@@ -205,6 +205,21 @@ class OrderServiceMockitoTest
     }
 
     @Test
+    void clearOrderItemsWithConfirmedOrderDoesNotCallDelete()
+    {
+        // Arrange
+        Order order = new Order(1, 1);
+        order.setConfirmed(true);
+
+        // Act
+        orderService.clearOrderItems(order);
+
+        // Assert
+        Mockito.verify(orderItemRepo, Mockito.never()).delete(any());
+    }
+
+
+    @Test
     void clearOrderItemsWithTwoItemsCallsDeleteTwoTimes()
     {
         // Arrange
