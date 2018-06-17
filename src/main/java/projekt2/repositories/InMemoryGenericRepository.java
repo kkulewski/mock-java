@@ -2,7 +2,6 @@ package projekt2.repositories;
 
 import com.google.common.collect.Iterables;
 import projekt2.entities.Entity;
-import projekt2.repositories.GenericRepository;
 import java.util.ArrayList;
 import java.util.List;
 

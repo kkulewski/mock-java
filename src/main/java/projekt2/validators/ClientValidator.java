@@ -4,5 +4,5 @@ import projekt2.entities.Client;
 
 public interface ClientValidator
 {
-    public boolean isValid(Client client);
+    boolean isValid(Client client);
 }

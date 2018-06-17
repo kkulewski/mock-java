@@ -2,7 +2,6 @@ package projekt2.services;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
 import projekt2.entities.*;
 import projekt2.repositories.*;
